@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiệp chúc mừng sinh nhật 🎂</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: "Segoe UI", sans-serif;
+      background: #fff8e8;
+      color: #6b4050;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100vh;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn .8s ease;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    /* ---------- MÀN HÌNH 1 ---------- */
+
+    .title {
+      font-size: 25px;
+      margin-bottom: 30px;
+    }
+
+    .gift {
+      position: relative;
+      width: 150px;
+      height: 125px;
+      cursor: pointer;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .gift-box {
+      position: absolute;
+      bottom: 0;
+      width: 150px;
+      height: 95px;
+      background: linear-gradient(#ffd52e, #ffb900);
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 8px 15px #d6b56b;
+    }
+
+    .gift-lid {
+      position: absolute;
+      top: 20px;
+      left: -8px;
+      width: 166px;
+      height: 30px;
+      background: #ffd52e;
+      border-radius: 10px;
+      z-index: 2;
+    }
+
+    .ribbon-v {
+      position: absolute;
+      left: 60px;
+      top: 20px;
+      width: 30px;
+      height: 105px;
+      background: #ef4242;
+      z-index: 3;
+    }
+
+    .bow-left,
+    .bow-right {
+      position: absolute;
+      top: 0;
+      width: 45px;
+      height: 30px;
+      border: 9px solid #c93636;
+      border-radius: 50%;
+      z-index: 4;
+    }
+
+    .bow-left {
+      left: 35px;
+      transform: rotate(25deg);
+    }
+
+    .bow-right {
+      right: 35px;
+      transform: rotate(-25deg);
+    }
+
+    .hint {
+      margin-top: 25px;
+      font-size: 15px;
+    }
+
+    /* ---------- TRÁI TIM ---------- */
+
+    .heart-title {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .hearts {
+      display: flex;
+      gap: 18px;
+    }
+
+    .heart {
+      font-size: 45px;
+      cursor: pointer;
+      transition: .25s;
+      filter: grayscale(0.2);
+      animation: heartBeat 1.3s infinite;
+    }
+
+    .heart:hover {
+      transform: scale(1.25);
+    }
+
+    .heart.done {
+      opacity: .25;
+      transform: scale(.8);
+      pointer-events: none;
+    }
+
+    /* ---------- THIỆP ---------- */
+
+    .card {
+      width: min(90%, 500px);
+      padding: 35px 30px;
+      background: white;
+      border-radius: 22px;
+      box-shadow:
+        0 15px 40px rgba(100, 60, 50, .18);
+      animation: cardAppear 1s ease;
+      position: relative;
+    }
+
+    .card::before {
+      content: "🎀";
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);font-size: 35px;
+    }
+
+    .cake {
+      font-size: 85px;
+      margin-bottom: 15px;
+      animation: bounce 1.5s infinite;
+    }
+
+    .birthday-title {
+      font-size: 30px;
+      color: #e45a75;
+      margin: 5px 0 15px;
+    }
+
+    .message {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #744c59;
+    }
+
+    .from {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      font-size: 22px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    /* ---------- ANIMATION ---------- */
+
+    @keyframes float {
+      0%,100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes heartBeat {
+      0%,100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.12);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: scale(.7) translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%,100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .heart-title {
+        font-size: 16px;
+      }
+
+      .heart {
+        font-size: 38px;
+      }
+
+      .card {
+        padding: 30px 20px;
+      }
+
+      .message {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MÀN HÌNH HỘP QUÀ -->
+  <section id="screen1" class="screen active">
+
+    <div class="title">
+      🎁 Một món quà dành cho bạn
+    </div>
+
+    <div class="gift" onclick="openGift()">
+      <div class="bow-left"></div>
+      <div class="bow-right"></div>
+
+      <div class="gift-lid"></div>
+
+      <div class="gift-box"></div>
+
+      <div class="ribbon-v"></div>
+    </div>
+
+    <div class="hint">
+      Nhấn vào hộp quà để mở điều bất ngờ! 💝
+    </div>
+
+  </section>
+
+
+  <!-- MÀN HÌNH TRÁI TIM -->
+  <section id="screen2" class="screen">
+
+    <div class="heart-title">
+      Chạm đủ 4 trái tim ❤️ để nhận món quà nhé!
+    </div>
+
+    <div class="hearts">
+      <div class="heart" onclick="touchHeart(this)">❤️</div>
+      <div class="heart" onclick="touchHeart(this)">❤️</div>
+      <div class="heart" onclick="touchHeart(this)">❤️</div>
+      <div class="heart" onclick="touchHeart(this)">❤️</div>
+    </div>
+
+  </section>
+
+
+  <!-- THIỆP -->
+  <section id="screen3" class="screen">
+
+    <div class="card">
+
+      <div class="cake">
+        🎂
+      </div>
+
+      <h1 class="birthday-title">
+        🎉 Happy Birthday! 🎉
+      </h1><div class="message">
+        Chúc mừng sinh nhật nhé! 🥳💗<br><br>
+
+        Chúc bạn tuổi mới luôn vui vẻ,
+        luôn xinh đẹp và gặp thật nhiều
+        điều may mắn trong cuộc sống. ✨<br><br>
+
+        Mong rằng mọi điều bạn mong muốn
+        đều sẽ trở thành hiện thực.
+        Hãy luôn cười thật nhiều nhé! 💕
+      </div>
+
+      <div class="from">
+        From: Bá Dạn 💌
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <script>
+
+    let heartCount = 0;
+
+    function openGift() {
+
+      document.getElementById("screen1")
+        .classList.remove("active");
+
+      document.getElementById("screen2")
+        .classList.add("active");
+
+    }
+
+
+    function touchHeart(heart) {
+
+      heart.classList.add("done");
+
+      heartCount++;
+
+      createHeartEffect();
+
+      if (heartCount >= 4) {
+
+        setTimeout(() => {
+
+          document.getElementById("screen2")
+            .classList.remove("active");
+
+          document.getElementById("screen3")
+            .classList.add("active");
+
+          createConfetti();
+
+        }, 700);
+
+      }
+
+    }
+
+
+    function createHeartEffect() {
+
+      const heart = document.createElement("div");
+
+      heart.innerHTML = "💗";
+
+      heart.style.position = "fixed";
+      heart.style.left = "50%";
+      heart.style.top = "50%";
+      heart.style.fontSize = "30px";
+      heart.style.pointerEvents = "none";
+
+      document.body.appendChild(heart);
+
+      heart.animate([
+        {
+          transform: "translate(-50%, -50%) scale(1)",
+          opacity: 1
+        },
+        {
+          transform: "translate(-50%, -180px) scale(1.5)",
+          opacity: 0
+        }
+      ], {
+        duration: 900,
+        easing: "ease-out"
+      });
+
+      setTimeout(() => heart.remove(), 900);
+    }
+
+
+    function createConfetti() {
+
+      const emojis = [
+        "🎉",
+        "🎊",
+        "💗",
+        "💕",
+        "✨",
+        "🎂",
+        "🎈"
+      ];
+
+      for (let i = 0; i < 45; i++) {
+
+        const confetti = document.createElement("div");
+
+        confetti.className = "confetti";
+
+        confetti.innerHTML =
+          emojis[Math.floor(Math.random() * emojis.length)];
+
+        confetti.style.left =
+          Math.random() * 100 + "vw";
+
+        confetti.style.animationDuration =
+          (2 + Math.random() * 3) + "s";
+
+        confetti.style.animationDelay =
+          Math.random() * 1.5 + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 6000);
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
